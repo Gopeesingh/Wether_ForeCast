@@ -1,3 +1,4 @@
+/** @format */
 import { cn } from '@/utils/cn';
 import React from 'react';
 import { IoSearch } from "react-icons/io5";
@@ -20,7 +21,7 @@ export default function SearchBox(props: Props) {
             onChange={props.onChange}
             placeholder="Search location...."
             className="px-4 py-2 h-full w-[230px] rounded-l-md border
-        border-gray-300 focus:outline-none focus:outline-none focus:border-blue-500"
+        border-gray-300 focus:outline-none focus:border-blue-500"
             />
         <button className='px-4 py-[9px] h-full  focus:outline-none
         rounded-r-md bg-blue-500 text-white hover:bg-blue-600'>

@@ -1,3 +1,4 @@
+/**  @format */
 'use client'
 
 import React, { useState } from 'react';
@@ -8,9 +9,10 @@ import axios from 'axios';
 import { useAtom } from 'jotai';
 import { loadingCityAtom, placeAtom } from '@/app/atom';
 
-type Props = {location?: string};
+type Props = { location?: string};
 
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
+// console.log("API_KEY", API_KEY);
 
 export default function Navbar({location}: Props) {
 
@@ -26,7 +28,9 @@ export default function Navbar({location}: Props) {
     setCity(value);
     if(value.length >= 3){
     try {
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/find?q=${value}&appid=${API_KEY}}`);
+        const response = await axios.get(
+          `https://api.openweathermap.org/data/2.5/find?q=${value}&appid=${API_KEY}`
+        );
 
         const suggestions = response.data.list.map((item: any) => item.name);
         setSuggestions(suggestions);
@@ -59,7 +63,7 @@ export default function Navbar({location}: Props) {
                 setLoadingCity(false);
                 setPlace(city);
                 setShowSuggestions(false);
-            },5000);
+            },500);
         }
         }
 
@@ -82,6 +86,7 @@ export default function Navbar({location}: Props) {
     }
 
     return(
+      <>
         <nav className="shadow-sm sticky top-0 left-0 z-50 bg-white">
             <div className="h-[80px] w-full flex justify-between items-center max-w-7xl px-3 mx-auto">
                 <p className="flex items-center justify-center gap-2">
@@ -96,7 +101,7 @@ export default function Navbar({location}: Props) {
                 className='text-2xl text-gray-400 hover:opacity-80 cursor-pointer' />
                 <MdOutlineLocationOn className='text-3xl'/>
                 <p className='text-slate-900/80 text-sm'> {location} </p>
-                <div className='relative'>
+                <div className='relative hidden md:flex'>
                     {/* SearchBox */}
 
                     <SearchBox 
@@ -105,7 +110,7 @@ export default function Navbar({location}: Props) {
                     onChange={(e) => handleInputChange(e.target.value)}
                     />
 
-                    <SuggetionBox 
+                    <SuggestionBox 
                     {...{showSuggestions,
                         suggestions,
                         handleSuggestionClick,
@@ -116,12 +121,30 @@ export default function Navbar({location}: Props) {
             </div>
             </nav>
 
+            <section className='flex max-w-7xl px-3 md:hidden'>
+            <div className='relative'>
+                    {/* SearchBox */}
 
+                    <SearchBox 
+                    value={city}
+                    onSubmit={handleSubmitSearch}
+                    onChange={(e) => handleInputChange(e.target.value)}
+                    />
+
+                    <SuggestionBox 
+                    {...{showSuggestions,
+                        suggestions,
+                        handleSuggestionClick,
+                        error}}
+                    />
+                </div>
+            </section>
+            </>
     )
 }
 
 
-function SuggetionBox({
+function SuggestionBox({
     showSuggestions,
     suggestions,
     handleSuggestionClick,
