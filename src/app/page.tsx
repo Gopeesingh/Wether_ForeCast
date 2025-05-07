@@ -1,6 +1,6 @@
 'use client';
 
-import { Container } from "@/components/Container";
+import  Container  from "@/components/Container";
 import ForcastWeatherDetails from "@/components/ForcastWeatherDetails";
 import Navbar from "@/components/Navbar";
 import WeatherDetails from "@/components/WeatherDetails";
@@ -73,69 +73,8 @@ interface WeatherData {
   };
 }
 
-type Forecast = {
-  dt: number;
-  main: Main;
-  weather: Weather[];
-  clouds: Clouds;
-  wind: Wind;
-  visibility: number;
-  pop: number;
-  sys: Sys;
-  dt_txt: string;
-};
-
-type Main = {
-  temp: number;
-  feels_like: number;
-  temp_min: number;
-  temp_max: number;
-  pressure: number;
-  sea_level: number;
-  grnd_level: number;
-  humidity: number;
-  temp_kf: number;
-};
-
-type Weather = {
-  id: number;
-  main: string;
-  description: string;
-  icon: string;
-};
-
-type Clouds = {
-  all: number;
-};
-
-type Wind = {
-  speed: number;
-  deg: number;
-  gust: number;
-};
-
-type Sys = {
-  pod: string;
-};
-
-type City = {
-  id: number;
-  name: string;
-  coord: Coordinates;
-  country: string;
-  population: number;
-  timezone: number;
-  sunrise: number;
-  sunset: number;
-};
-
-type Coordinates = {
-  lat: number;
-  lon: number;
-};
-
 export default function Home() {
-  const [place, setPlace] = useAtom(placeAtom);
+  const [place, ] = useAtom(placeAtom);
   const [loadingCity, ] = useAtom(loadingCityAtom);
 const { isPending, error, data, refetch } = useQuery<WeatherData>({queryKey: ['repoData'],
   queryFn: async () => {
@@ -181,7 +120,7 @@ if (isPending) return(
     if (error)
       return (
         <div className="flex items-center min-h-screen justify-center">
-          {/* @ts-ignore */}
+        
           <p className="text-red-400">{error.message}</p>
         </div>
       );

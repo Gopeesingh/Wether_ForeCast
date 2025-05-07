@@ -1,5 +1,6 @@
+import React from 'react';
 import { convertKelvinToCelsius } from '@/utils/convertKelvineToCelsius';
-import { Container } from './Container';
+import  Container  from './Container';
 import WeatherDetails, { WeatherDetailProps } from './WeatherDetails';
 import WeatherIcon from './WeatherIcon';
 
@@ -22,8 +23,8 @@ const {
     day = "Tuesday",
     temp,
     feels_like,
-    temp_min,
-    temp_max,
+    // temp_min,
+    // temp_max,
     description
     } = props;
     return (

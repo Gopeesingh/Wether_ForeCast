@@ -28,7 +28,7 @@ export default function WeatherDetails(props: WeatherDetailProps) {
     <SingleWeatherDetails
     icon={<LuEye />}
     information="Visibility"
-    value={props.visibility}
+    value={visibility}
     />
         <SingleWeatherDetails
         icon={<FiDroplet />}

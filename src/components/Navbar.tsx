@@ -1,4 +1,3 @@
-/**  @format */
 'use client'
 
 import React, { useState } from 'react';
@@ -21,8 +20,8 @@ export default function Navbar({location}: Props) {
 
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const [place, setPlace] = useAtom(placeAtom);
-    const [_, setLoadingCity] = useAtom(loadingCityAtom);
+    const [ , setPlace] = useAtom(placeAtom);
+    const [ , setLoadingCity] = useAtom(loadingCityAtom);
 
     async function handleInputChange(value : string){
     setCity(value);
@@ -32,13 +31,18 @@ export default function Navbar({location}: Props) {
           `https://api.openweathermap.org/data/2.5/find?q=${value}&appid=${API_KEY}`
         );
 
-        const suggestions = response.data.list.map((item: any) => item.name);
+        interface CityItem {
+          name: string;
+      }
+
+        const suggestions = response.data.list.map((item: CityItem) => item.name);
         setSuggestions(suggestions);
         setError("");
         setShowSuggestions(true);
     } catch (error) {
         setSuggestions([]);
         setShowSuggestions(false);
+        console.log("Error fetching suggestions:", error);
     }
     }else{
         setSuggestions([]);
@@ -80,6 +84,7 @@ export default function Navbar({location}: Props) {
                     }, 5000);
                 } catch (error) {
                     setLoadingCity(false);
+                    console.log("Error fetching current location:", error);
                 }
             });
         }
@@ -104,13 +109,13 @@ export default function Navbar({location}: Props) {
                 <div className='relative hidden md:flex'>
                     {/* SearchBox */}
 
-                    <SearchBox 
+                    <SearchBox
                     value={city}
                     onSubmit={handleSubmitSearch}
                     onChange={(e) => handleInputChange(e.target.value)}
                     />
 
-                    <SuggestionBox 
+                    <SuggestionBox
                     {...{showSuggestions,
                         suggestions,
                         handleSuggestionClick,
@@ -125,13 +130,13 @@ export default function Navbar({location}: Props) {
             <div className='relative'>
                     {/* SearchBox */}
 
-                    <SearchBox 
+                    <SearchBox
                     value={city}
                     onSubmit={handleSubmitSearch}
                     onChange={(e) => handleInputChange(e.target.value)}
                     />
 
-                    <SuggestionBox 
+                    <SuggestionBox
                     {...{showSuggestions,
                         suggestions,
                         handleSuggestionClick,
